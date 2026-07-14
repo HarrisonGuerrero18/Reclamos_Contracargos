@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco AA — Centro de reclamos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="_css/style.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="marca">
+      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+        <rect width="30" height="30" rx="7" fill="#F0561D" />
+        <text x="15" y="20.5" text-anchor="middle" font-family="Archivo,sans-serif" font-weight="800" font-size="13"
+          fill="#fff">AA</text>
+      </svg>
+      <div class="marca-nombre">BANCO <span>AA</span></div>
+    </div>
+    <div class="badge-demo">ENTORNO DE SIMULACIÓN · POC</div>
+  </header>
+
+  <main>
+    <p class="eyebrow">Centro de reclamos · Tarjetas de crédito y débito</p>
+    <h1>Registrar un reclamo</h1>
+    <p class="intro">
+      Complete la información de la transacción que desea disputar. Al enviar, se
+      generará su comprobante en PDF y su caso quedará radicado para revisión.
+    </p>
+
+    <form id="formReclamo" novalidate>
+
+      <fieldset>
+        <legend><span class="num">1</span> Datos personales</legend>
+        <div class="grid">
+          <div class="campo">
+            <label for="nombres">Nombres y apellidos <span class="req">*</span></label>
+            <input type="text" id="nombres" autocomplete="name">
+            <span class="msg-error">Ingrese su nombre completo.</span>
+          </div>
+          <div class="campo">
+            <label for="cedula">Cédula de identidad <span class="req">*</span></label>
+            <input type="text" id="cedula" class="mono" inputmode="numeric" maxlength="10" placeholder="10 dígitos">
+            <span class="msg-error">La cédula debe tener 10 dígitos.</span>
+          </div>
+          <div class="campo">
+            <label for="ciudad">Ciudad <span class="req">*</span></label>
+            <input type="text" id="ciudad" autocomplete="address-level2">
+            <span class="msg-error">Ingrese su ciudad.</span>
+          </div>
+          <div class="campo">
+            <label for="direccion">Dirección <span class="req">*</span></label>
+            <input type="text" id="direccion" autocomplete="street-address">
+            <span class="msg-error">Ingrese su dirección.</span>
+          </div>
+          <div class="campo">
+            <label for="correo">Correo electrónico <span class="req">*</span></label>
+            <input type="email" id="correo" autocomplete="email">
+            <span class="hint">A este correo llegará la respuesta de su caso.</span>
+            <span class="msg-error">Ingrese un correo válido.</span>
+          </div>
+          <div class="campo">
+            <label for="telefono">Teléfono</label>
+            <input type="tel" id="telefono" class="mono" inputmode="numeric" maxlength="9" placeholder="Opcional">
+            <span class="msg-error"></span>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="num">2</span> Producto</legend>
+        <div class="grid">
+          <div class="campo ancho">
+            <label for="tarjeta">Número de tarjeta <span class="req">*</span></label>
+            <input type="text" id="tarjeta" class="mono" inputmode="numeric" maxlength="19"
+              placeholder="0000 0000 0000 0000">
+            <span class="msg-error">El número de tarjeta debe tener 16 dígitos.</span>
+          </div>
+          <div class="campo">
+            <label for="tipoProducto">Tipo de producto <span class="req">*</span></label>
+            <select id="tipoProducto">
+              <option value="">Seleccione…</option>
+              <option>Tarjeta de crédito</option>
+              <option>Tarjeta de débito</option>
+            </select>
+            <span class="msg-error">Seleccione el tipo de producto.</span>
+          </div>
+          <div class="campo">
+            <label for="franquicia">Franquicia <span class="req">*</span></label>
+            <select id="franquicia">
+              <option value="">Seleccione…</option>
+              <option>Visa</option>
+              <option>Mastercard</option>
+              <option>Amex</option>
+            </select>
+            <span class="msg-error">Seleccione la franquicia.</span>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="num">3</span> Transacción reclamada</legend>
+        <div class="grid">
+          <div class="campo">
+            <label for="fechaTrx">Fecha de la transacción <span class="req">*</span></label>
+            <input type="date" id="fechaTrx">
+            <span class="msg-error">Ingrese una fecha válida (no futura).</span>
+          </div>
+          <div class="campo">
+            <label for="monto">Monto (USD) <span class="req">*</span></label>
+            <input type="number" id="monto" class="mono" min="0.01" step="0.01" placeholder="0.00">
+            <span class="msg-error">Ingrese un monto mayor a cero.</span>
+          </div>
+          <div class="campo ancho">
+            <label for="comercio">Nombre del comercio <span class="req">*</span></label>
+            <input type="text" id="comercio" placeholder="Tal como aparece en su estado de cuenta">
+            <span class="msg-error">Ingrese el nombre del comercio.</span>
+          </div>
+          <div class="campo ancho">
+            <div class="check-linea">
+              <input type="checkbox" id="repetido">
+              <label for="repetido">Este cobro se ha repetido más de una vez</label>
+            </div>
+          </div>
+          <div class="campo" id="campoRepeticiones">
+            <label for="numRepeticiones">¿Cuántas veces en total? <span class="req">*</span></label>
+            <input type="number" id="numRepeticiones" class="mono" min="2" step="1" placeholder="Ej. 3">
+            <span class="msg-error">Indique cuántas veces (mínimo 2).</span>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="num">4</span> Motivo del reclamo</legend>
+        <div class="grid">
+          <div class="campo ancho">
+            <label for="motivo">Seleccione el motivo <span class="req">*</span></label>
+            <select id="motivo">
+              <option value="">Seleccione…</option>
+              <option data-adjunto="obligatorio">No reconozco esta transacción / no la autoricé</option>
+              <option data-adjunto="opcional">Me realizaron un cobro duplicado</option>
+              <option data-adjunto="opcional">El monto cobrado no corresponde a mi compra</option>
+              <option data-adjunto="opcional">Quiero aclarar un cobro recurrente o suscripción</option>
+              <option data-adjunto="opcional">Seguimiento a la devolución de un fraude ya reportado</option>
+            </select>
+            <span class="msg-error">Seleccione el motivo del reclamo.</span>
+          </div>
+          <div class="campo ancho">
+            <label for="descripcion">Describa lo sucedido <span class="req">*</span></label>
+            <textarea id="descripcion" maxlength="600"
+              placeholder="Cuéntenos con sus palabras qué ocurrió con este cobro."></textarea>
+            <span class="msg-error">Describa brevemente lo sucedido.</span>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="num">5</span> Documento de soporte</legend>
+        <div class="grid">
+          <div class="campo ancho">
+            <label for="adjunto">Adjuntar archivo <span class="req" id="reqAdjunto" hidden>*</span></label>
+            <input type="file" id="adjunto" accept=".pdf,.png,.jpg,.jpeg">
+            <div class="aviso-adjunto" id="avisoAdjunto"></div>
+            <span class="msg-error">Para este motivo, el documento de soporte es obligatorio.</span>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="acciones">
+        <button type="submit" id="btnEnviar">Registrar reclamo</button>
+        <p class="nota-envio">Se descargará su comprobante en PDF y el caso quedará radicado.</p>
+      </div>
+    </form>
+
+    <section id="comprobante" aria-live="polite">
+      <div class="recibo">
+        <div class="recibo-cab">
+          <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+            <circle cx="10" cy="10" r="9" fill="none" stroke="currentColor" stroke-width="2" />
+            <path d="M6 10.5l2.5 2.5L14 7.5" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" />
+          </svg>
+          Reclamo radicado
+        </div>
+        <dl class="recibo-cuerpo">
+          <div class="recibo-fila">
+            <dt>Radicado</dt>
+            <dd id="rRadicado"></dd>
+          </div>
+          <div class="recibo-fila">
+            <dt>Fecha de registro</dt>
+            <dd id="rFecha"></dd>
+          </div>
+          <div class="recibo-fila">
+            <dt>Titular</dt>
+            <dd id="rTitular"></dd>
+          </div>
+          <hr class="recibo-corte">
+          <ul class="recibo-archivos" id="rArchivos"></ul>
+        </dl>
+        <div class="recibo-pie">
+          <p>Guarde los archivos descargados en la carpeta compartida del banco.<br>
+            Recibirá la respuesta de su caso al correo registrado.</p>
+          <button id="btnNuevo" type="button">Registrar otro reclamo</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>Banco AA · Portal de reclamos · Simulación para POC — Automation Anywhere</footer>
+  <script src="_scripts/script.js"></script>
+</body>
+
+</html>

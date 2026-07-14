@@ -1,0 +1,419 @@
+:root {
+  --naranja: #F0561D;
+  --naranja-suave: #FDEBE2;
+  --tinta: #23252B;
+  --gris: #6B6E76;
+  --papel: #F6F5F2;
+  --tarjeta: #FFFFFF;
+  --borde: #E3E1DC;
+  --exito: #1E7B4F;
+  --exito-suave: #E8F4EE;
+  --error: #B3261E;
+  --error-suave: #FBEAE9;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--papel);
+  color: var(--tinta);
+  line-height: 1.5;
+}
+
+.topbar {
+  background: var(--tinta);
+  color: #fff;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 10px
+}
+
+.marca svg {
+  display: block
+}
+
+.marca-nombre {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: .02em;
+}
+
+.marca-nombre span {
+  color: var(--naranja)
+}
+
+.badge-demo {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .7rem;
+  border: 1px solid rgba(255, 255, 255, .3);
+  border-radius: 4px;
+  padding: 3px 8px;
+  color: rgba(255, 255, 255, .75);
+  white-space: nowrap;
+}
+
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 36px 20px 64px
+}
+
+.eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .72rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--naranja);
+  margin-bottom: 8px;
+}
+
+h1 {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+  font-size: 1.7rem;
+  letter-spacing: -.01em;
+  margin-bottom: 8px;
+}
+
+.intro {
+  color: var(--gris);
+  font-size: .95rem;
+  max-width: 56ch;
+  margin-bottom: 28px
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px
+}
+
+fieldset {
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  background: var(--tarjeta);
+  padding: 22px 22px 24px;
+}
+
+legend {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+  font-size: .95rem;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  font-size: .72rem;
+  background: var(--naranja);
+  color: #fff;
+  border-radius: 4px;
+  padding: 2px 7px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 16px
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px
+}
+
+.campo.ancho {
+  grid-column: 1 / -1
+}
+
+label {
+  font-size: .85rem;
+  font-weight: 600
+}
+
+label .req {
+  color: var(--naranja)
+}
+
+.hint {
+  font-size: .76rem;
+  color: var(--gris)
+}
+
+input[type=text], input[type=email], input[type=tel], input[type=date],
+input[type=number], select, textarea, input[type=file] {
+  font-family: inherit;
+  font-size: .92rem;
+  color: var(--tinta);
+  border: 1px solid var(--borde);
+  border-radius: 7px;
+  background: #fff;
+  padding: 9px 11px;
+  width: 100%;
+}
+
+input.mono {
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: .04em
+}
+
+textarea {
+  resize: vertical;
+  min-height: 84px
+}
+
+input:focus-visible, select:focus-visible, textarea:focus-visible,
+button:focus-visible, input[type=file]:focus-visible {
+  outline: 2px solid var(--naranja);
+  outline-offset: 1px;
+  border-color: var(--naranja);
+}
+
+.campo.invalido input, .campo.invalido select, .campo.invalido textarea {
+  border-color: var(--error);
+  background: var(--error-suave);
+}
+
+.msg-error {
+  font-size: .76rem;
+  color: var(--error);
+  display: none
+}
+
+.campo.invalido .msg-error {
+  display: block
+}
+
+.check-linea {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding-top: 4px
+}
+
+.check-linea input {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--naranja)
+}
+
+.check-linea label {
+  font-weight: 500;
+  font-size: .88rem
+}
+
+#campoRepeticiones {
+  display: none
+}
+
+#campoRepeticiones.visible {
+  display: flex
+}
+
+.aviso-adjunto {
+  display: none;
+  font-size: .8rem;
+  border-radius: 7px;
+  padding: 9px 12px;
+  margin-top: 2px;
+}
+
+.aviso-adjunto.obligatorio {
+  display: block;
+  background: var(--naranja-suave);
+  color: #8A3411
+}
+
+.aviso-adjunto.opcional {
+  display: block;
+  background: var(--papel);
+  color: var(--gris)
+}
+
+.acciones {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap
+}
+
+button[type=submit] {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+  font-size: .95rem;
+  background: var(--naranja);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 13px 26px;
+  cursor: pointer;
+  transition: background .15s;
+}
+
+button[type=submit]:hover {
+  background: #D24312
+}
+
+button[type=submit]:disabled {
+  background: var(--gris);
+  cursor: wait
+}
+
+.nota-envio {
+  font-size: .78rem;
+  color: var(--gris);
+  max-width: 38ch
+}
+
+/* Comprobante de radicación */
+#comprobante {
+  display: none;
+  margin-top: 8px
+}
+
+#comprobante.visible {
+  display: block
+}
+
+.recibo {
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  overflow: hidden;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.recibo-cab {
+  background: var(--exito-suave);
+  color: var(--exito);
+  padding: 16px 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+}
+
+.recibo-cuerpo {
+  padding: 20px 22px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .82rem
+}
+
+.recibo-fila {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 5px 0
+}
+
+.recibo-fila dt {
+  color: var(--gris)
+}
+
+.recibo-fila dd {
+  font-weight: 600;
+  text-align: right;
+  word-break: break-all
+}
+
+.recibo-corte {
+  border: none;
+  border-top: 2px dashed var(--borde);
+  margin: 14px 0;
+}
+
+.recibo-archivos {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px
+}
+
+.recibo-archivos li::before {
+  content: "↓ ";
+  color: var(--naranja)
+}
+
+.recibo-pie {
+  padding: 14px 22px 20px;
+  text-align: center;
+}
+
+.recibo-pie p {
+  font-size: .78rem;
+  color: var(--gris);
+  margin-bottom: 14px
+}
+
+#btnNuevo {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 600;
+  font-size: .88rem;
+  background: #fff;
+  color: var(--tinta);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+#btnNuevo:hover {
+  border-color: var(--tinta)
+}
+
+footer {
+  text-align: center;
+  padding: 0 20px 40px;
+  color: var(--gris);
+  font-size: .75rem;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+@media (max-width:560px) {
+  .grid {
+    grid-template-columns: 1fr
+  }
+
+  .badge-demo {
+    display: none
+  }
+}
+
+@media (prefers-reduced-motion:no-preference) {
+  #comprobante.visible .recibo {
+    animation: aparecer .35s ease-out
+  }
+
+  @keyframes aparecer {
+    from {
+      opacity: 0;
+      transform: translateY(8px)
+    }
+
+    to {
+      opacity: 1;
+      transform: none
+    }
+  }
+}
